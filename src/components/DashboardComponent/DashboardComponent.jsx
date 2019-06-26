@@ -114,7 +114,7 @@ class DashboardComponent extends Component {
   adicionarCheckin(event) {
     event.preventDefault();
     const form = event.currentTarget;
-    if (!form.checkValidity()) {
+    if (!form.checkValidity() || !this.state.pessoa.value) {
       return;
     }
 
