@@ -9,6 +9,10 @@ import Select from 'react-select';
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker, { registerLocale } from 'react-datepicker';
 import pt from 'date-fns/locale/pt';
+
+import setaDir from './images/seta-direita.svg'
+import setaEsq from './images/seta-esquerda.svg'
+
 registerLocale('pt', pt);
 
 
@@ -24,8 +28,10 @@ class DashboardComponent extends Component {
       isPessoasPresente: true,
       listFiltro: [],
       dateEntrada: new Date(),
-      dateSaidaChange : new Date() ,
-      pessoa: ""
+      dateSaidaChange: new Date(),
+      pessoa: "",
+      possuiVeiculo: false,
+      paginador: 0
     }
 
     this.isIncluirPessoa = this.isIncluirPessoa.bind(this)
@@ -36,6 +42,9 @@ class DashboardComponent extends Component {
     this.getListaPessoa = this.getListaPessoa.bind(this)
     this.adicionarCheckin = this.adicionarCheckin.bind(this)
     this.dateSaidaChange = this.dateSaidaChange.bind(this)
+    this.changepossuiVeiculo = this.changepossuiVeiculo.bind(this)
+    this.decrement = this.decrement.bind(this)
+    this.increment = this.increment.bind(this)
 
 
   }
@@ -64,12 +73,12 @@ class DashboardComponent extends Component {
     });
 
     let dateAux = new Date();
-    
+
     dateAux.setDate(this.state.dateEntrada.getDate() + 1)
     this.setState({
       listaPessoas: listaPessoas,
-      listaCheckin: listaCheckin, 
-      dateSaidaChange : dateAux 
+      listaCheckin: listaCheckin,
+      dateSaidaChange: dateAux
     })
 
   }
@@ -132,16 +141,28 @@ class DashboardComponent extends Component {
 
     listaCheckin.push(obj);
 
-    console.log("listaCheckin wag ", listaCheckin)
+    let dateAux = new Date();
+    dateAux.setDate((new Date()).getDate() + 1)
 
     this.setState({
       listaCheckin: listaCheckin,
+      dateEntrada: new Date(),
+      dateSaidaChange: dateAux,
+      pessoa: "",
+      possuiVeiculo: false
     })
   }
 
   changePessoa(event) {
     this.setState({
       isPessoasPresente: (event.target.value === "true"),
+      paginador: 0
+    })
+  }
+
+  changepossuiVeiculo(event) {
+    this.setState({
+      possuiVeiculo: (event.target.checked),
     })
   }
 
@@ -157,8 +178,15 @@ class DashboardComponent extends Component {
       }
     });
 
+    let l = [];
+    for (let i = this.state.paginador * 5; i < (this.state.paginador + 1) * 5; i++) {
+      const p = lista[i];
+      if (p) {
+        l.push(p);
+      }
+    }
 
-    return lista;
+    return l;
   }
 
   dateChange(date) {
@@ -168,12 +196,12 @@ class DashboardComponent extends Component {
 
     this.setState({
       dateEntrada: date,
-      dateSaidaChange : dateAux
+      dateSaidaChange: dateAux
     });
   }
   dateSaidaChange(date) {
     this.setState({
-      dateSaidaChange : date
+      dateSaidaChange: date
     });
   }
 
@@ -183,6 +211,19 @@ class DashboardComponent extends Component {
       lista.push({ label: p.nome + " - " + p.documento, value: p.documento });
     });
     return lista;
+  }
+
+  decrement() {
+    if (this.state.paginador - 1 < 0) {
+      return;
+    }
+    this.setState({ paginador: this.state.paginador - 1 })
+  }
+  increment() {
+    if (this.getListFiltro().length < 5) {
+      return;
+    }
+    this.setState({ paginador: this.state.paginador + 1 })
   }
 
   render() {
@@ -309,7 +350,8 @@ class DashboardComponent extends Component {
                 </Form.Group>
 
                 <Form.Group as={Col} md="6" controlId="possuiVeiculo">
-                  <Form.Check
+                  <Form.Check onClick={this.changepossuiVeiculo}
+                    checked={this.state.possuiVeiculo}
                     style={{ marginTop: '50px', marginLeft: "20px" }}
                     label="Possui veículo"
                   />
@@ -357,8 +399,8 @@ class DashboardComponent extends Component {
                         let diasSemana = 0;
 
                         let date = new Date(obj.dataEntrada.getTime());
-                        
-                        
+
+
                         do {
                           if (date.getDay() === 6 || date.getDay() === 0) {
                             diasFds++;
@@ -394,6 +436,21 @@ class DashboardComponent extends Component {
                 </tbody>
               </Table>
 
+              <div>
+                <Button style={{ marginRight: "12px" }} className="paginador" onClick={() => this.decrement()} variant="outline-primary">
+                  <p>
+                    <img style={{ marginRight: "7px"}} className="icon" alt="" src={setaEsq} />
+                    Previous
+                  </p>
+                </Button>
+                <Button className="paginador" variant="outline-primary" onClick={() => this.increment()}>
+                  <p>
+                    Next
+                    <img style={{ marginLeft: "7px"}} className="icon" alt="" src={setaDir} />
+                  </p>
+                </Button>
+
+              </div>
             </div>
           </Card.Body>
         </Card>

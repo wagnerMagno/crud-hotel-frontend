@@ -48,6 +48,44 @@ const DashboardComponentStyled = styled.div`
         background-color: #337ab7;
     }
 
+    .consultas{
+        margin-bottom: 15px;
+    }
+
+    .paginador{
+        border: 2px solid #f1f0ee !important;
+        border-radius: 23px;
+        height: 24px;
+        font-size: 12px;
+        color: #337ab7;
+        width: 90px;
+        padding-bottom: 1px !important;
+
+        p{
+            margin-top: -5px;
+        }
+    }
+
+    .paginador:hoover{
+        background-color: white !important;
+    }
+
+    .btn-outline-primary:hover {
+        background-color: white;
+    }
+    .btn-outline-primary:focus {
+        box-shadow: 0 0 0 0rem rgba(0,123,255,.5) !important;
+    }
+
+    .btn-outline-primary:not(:disabled):not(.disabled):active, .show>.btn-outline-primary.dropdown-toggle {
+        color: #337ab7 !important;
+        background-color: white !important;
+    }
+
+
+    .icon{
+        width: 10px;
+    }
 `;
 
 export default DashboardComponentStyled;
