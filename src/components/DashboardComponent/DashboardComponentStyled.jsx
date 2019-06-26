@@ -44,7 +44,7 @@ const DashboardComponentStyled = styled.div`
         color: white;
     }
     
-    button{
+    .button-submit{
         background-color: #337ab7;
     }
 
