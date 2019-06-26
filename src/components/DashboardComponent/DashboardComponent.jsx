@@ -439,14 +439,14 @@ class DashboardComponent extends Component {
               <div>
                 <Button style={{ marginRight: "12px" }} className="paginador" onClick={() => this.decrement()} variant="outline-primary">
                   <p>
-                    <img style={{ marginRight: "7px"}} className="icon" alt="" src={setaEsq} />
+                    <img style={{ marginRight: "4px"}} className="icon" alt="" src={setaEsq} />
                     Previous
                   </p>
                 </Button>
                 <Button className="paginador" variant="outline-primary" onClick={() => this.increment()}>
                   <p>
                     Next
-                    <img style={{ marginLeft: "7px"}} className="icon" alt="" src={setaDir} />
+                    <img style={{ marginLeft: "5px"}} className="icon" alt="" src={setaDir} />
                   </p>
                 </Button>
 
