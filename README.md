@@ -6,7 +6,7 @@ Para a criação do front-end foi utilizado ReactJs, que é um framework javaScr
 
 ## Rodando a aplicação
 
-Para rodar o projeto, é necessário que na máquina tenha instalado o NPM
-Após isso, entrar no diretório raiz do projeto e rodar o comando - npm install
-E por fimr executar o comando - npm start
-Com isso a aplicação está rodando no link http://localhost:3000/
+Para rodar o projeto, é necessário que na máquina tenha instalado o NPM <br>
+Após isso, entrar no diretório raiz do projeto e rodar o comando - npm install <br>
+E por fimr executar o comando - npm start <br>
+Com isso a aplicação está rodando no link http://localhost:3000/ <br>
